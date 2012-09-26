@@ -7,11 +7,11 @@ test:
 
 docs: docs/api.html
 
-docs/api.html: lib/passport-dropbox/*.js
+docs/api.html: lib/passport-allplayers/*.js
 	dox \
-		--title Passport-Dropbox \
-		--desc "Dropbox authentication strategy for Passport" \
-		$(shell find lib/passport-dropbox/* -type f) > $@
+		--title Passport-AllPlayers \
+		--desc "AllPlayers authentication strategy for Passport" \
+		$(shell find lib/passport-allplayers/* -type f) > $@
 
 docclean:
 	rm -f docs/*.{1,html}

@@ -1,7 +1,7 @@
 var vows = require('vows');
 var assert = require('assert');
 var util = require('util');
-var DropboxStrategy = require('passport-dropbox/strategy');
+var DropboxStrategy = require('passport-allplayers/strategy');
 
 
 vows.describe('DropboxStrategy').addBatch({
@@ -15,8 +15,8 @@ vows.describe('DropboxStrategy').addBatch({
       function() {});
     },
     
-    'should be named dropbox': function (strategy) {
-      assert.equal(strategy.name, 'dropbox');
+    'should be named allplayers': function (strategy) {
+      assert.equal(strategy.name, 'allplayers');
     },
   },
   
@@ -31,7 +31,7 @@ vows.describe('DropboxStrategy').addBatch({
       // mock
       strategy._oauth.get = function(url, token, tokenSecret, callback) {
         var body = '{ \
-            "referral_link": "https://www.dropbox.com/referrals/r1a2n3d4m5s6t7", \
+            "referral_link": "https://www.allplayers.com/referrals/r1a2n3d4m5s6t7", \
             "display_name": "John P. User", \
             "uid": 12345678, \
             "country": "US", \
@@ -65,7 +65,7 @@ vows.describe('DropboxStrategy').addBatch({
         assert.isNull(err);
       },
       'should load profile' : function(err, profile) {
-        assert.equal(profile.provider, 'dropbox');
+        assert.equal(profile.provider, 'allplayers');
         assert.equal(profile.id, '12345678');
         assert.equal(profile.displayName, 'John P. User');
         assert.equal(profile.emails[0].value, 'john@example.com');

@@ -1,28 +1,28 @@
-# Passport-Dropbox
+# Passport-AllPlayers
 
 [Passport](https://github.com/jaredhanson/passport) strategy for authenticating
-with [Dropbox](http://www.dropbox.com/) using the OAuth 1.0 API.
+with [AllPlayers.com](http://www.allplayers.com/) using the OAuth 1.0 API.
 
 ## Installation
 
-    $ npm install passport-dropbox
+    $ npm install passport-allplayers
 
 ## Usage
 
 #### Configure Strategy
 
-The Dropbox authentication strategy authenticates users using a Dropbox account
-and OAuth tokens.  The strategy requires a `verify` callback, which accepts
-these credentials and calls `done` providing a user, as well as `options`
+The AllPlayers authentication strategy authenticates users using a AllPlayers
+account and OAuth tokens.  The strategy requires a `verify` callback, which
+accepts these credentials and calls `done` providing a user, as well as `options`
 specifying a consumer key, consumer secret, and callback URL.
 
-    passport.use(new DropboxStrategy({
-        consumerKey: DROPBOX_APP_KEY,
-        consumerSecret: DROPBOX_APP_SECRET,
-        callbackURL: "http://127.0.0.1:3000/auth/dropbox/callback"
+    passport.use(new AllPlayersStrategy({
+        consumerKey: ALLPLAYERS_APP_KEY,
+        consumerSecret: ALLPLAYERS_APP_SECRET,
+        callbackURL: "http://127.0.0.1:3000/auth/allplayers/callback"
       },
       function(token, tokenSecret, profile, done) {
-        User.findOrCreate({ dropboxId: profile.id }, function (err, user) {
+        User.findOrCreate({ allplayersId: profile.id }, function (err, user) {
           return done(err, user);
         });
       }
@@ -30,21 +30,21 @@ specifying a consumer key, consumer secret, and callback URL.
 
 #### Authenticate Requests
 
-Use `passport.authenticate()`, specifying the `'dropbox'` strategy, to
+Use `passport.authenticate()`, specifying the `'allplayers'` strategy, to
 authenticate requests.
 
 For example, as route middleware in an [Express](http://expressjs.com/)
 application:
 
-    app.get('/auth/dropbox',
-      passport.authenticate('dropbox'),
+    app.get('/auth/allplayers',
+      passport.authenticate('allplayers'),
       function(req, res){
-        // The request will be redirected to Dropbox for authentication, so this
+        // The request will be redirected to AllPlayers for authentication, so this
         // function will not be called.
       });
-    
-    app.get('/auth/dropbox/callback', 
-      passport.authenticate('dropbox', { failureRedirect: '/login' }),
+
+    app.get('/auth/allplayers/callback',
+      passport.authenticate('allplayers', { failureRedirect: '/login' }),
       function(req, res) {
         // Successful authentication, redirect home.
         res.redirect('/');
@@ -52,24 +52,24 @@ application:
 
 ## Examples
 
-For a complete, working example, refer to the [login example](https://github.com/jaredhanson/passport-dropbox/tree/master/examples/login).
+For a complete, working example, refer to the [login example](https://github.com/allplayers/passport-allplayers/tree/master/examples/login).
 
 ## Tests
 
     $ npm install --dev
     $ make test
 
-[![Build Status](https://secure.travis-ci.org/jaredhanson/passport-dropbox.png)](http://travis-ci.org/jaredhanson/passport-dropbox)
-
 ## Credits
 
   - [Jared Hanson](http://github.com/jaredhanson)
+  - [Chris Christensen](http://imetchrischris.com)
 
 ## License
 
 (The MIT License)
 
 Copyright (c) 2011 Jared Hanson
+Copyright (c) 2011 AllPlayers.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in

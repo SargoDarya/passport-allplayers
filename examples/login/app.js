@@ -1,10 +1,10 @@
 var express = require('express')
   , passport = require('passport')
   , util = require('util')
-  , DropboxStrategy = require('passport-dropbox').Strategy;
+  , AllPlayersStrategy = require('passport-allplayers').Strategy;
 
-var DROPBOX_APP_KEY = "--insert-dropbox-app-key-here--"
-var DROPBOX_APP_SECRET = "--insert-dropbox-app-secret-here--";
+var ALLPLAYERS_APP_KEY = "--insert-allplayers-app-key-here--"
+var ALLPLAYERS_APP_SECRET = "--insert-allplayers-app-secret-here--";
 
 
 // Passport session setup.
@@ -12,7 +12,7 @@ var DROPBOX_APP_SECRET = "--insert-dropbox-app-secret-here--";
 //   serialize users into and deserialize users out of the session.  Typically,
 //   this will be as simple as storing the user ID when serializing, and finding
 //   the user by ID when deserializing.  However, since this example does not
-//   have a database of user records, the complete Dropbox profile is
+//   have a database of user records, the complete AllPlayers profile is
 //   serialized and deserialized.
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -23,22 +23,22 @@ passport.deserializeUser(function(obj, done) {
 });
 
 
-// Use the DropboxStrategy within Passport.
+// Use the AllPlayersStrategy within Passport.
 //   Strategies in passport require a `verify` function, which accept
-//   credentials (in this case, a token, tokenSecret, and Dropbox profile), and
+//   credentials (in this case, a token, tokenSecret, and AllPlayers profile), and
 //   invoke a callback with a user object.
-passport.use(new DropboxStrategy({
-    consumerKey: DROPBOX_APP_KEY,
-    consumerSecret: DROPBOX_APP_SECRET,
-    callbackURL: "http://127.0.0.1:3000/auth/dropbox/callback"
+passport.use(new AllPlayersStrategy({
+    consumerKey: ALLPLAYERS_APP_KEY,
+    consumerSecret: ALLPLAYERS_APP_SECRET,
+    callbackURL: "http://127.0.0.1:3000/auth/allplayers/callback"
   },
   function(token, tokenSecret, profile, done) {
     // asynchronous verification, for effect...
     process.nextTick(function () {
-      
-      // To keep the example simple, the user's Dropbox profile is returned to
+
+      // To keep the example simple, the user's AllPlayers profile is returned to
       // represent the logged-in user.  In a typical application, you would want
-      // to associate the Dropbox account with a user record in your database,
+      // to associate the AllPlayers account with a user record in your database,
       // and return that user instead.
       return done(null, profile);
     });
@@ -80,25 +80,25 @@ app.get('/login', function(req, res){
   res.render('login', { user: req.user });
 });
 
-// GET /auth/dropbox
+// GET /auth/allplayers
 //   Use passport.authenticate() as route middleware to authenticate the
-//   request.  The first step in Dropbox authentication will involve redirecting
-//   the user to dropbox.com.  After authorization, Dropbox will redirect the user
-//   back to this application at /auth/dropbox/callback
-app.get('/auth/dropbox',
-  passport.authenticate('dropbox'),
+//   request.  The first step in AllPlayers authentication will involve redirecting
+//   the user to allplayers.com.  After authorization, AllPlayers will redirect the user
+//   back to this application at /auth/allplayers/callback
+app.get('/auth/allplayers',
+  passport.authenticate('allplayers'),
   function(req, res){
-    // The request will be redirected to Dropbox for authentication, so this
+    // The request will be redirected to AllPlayers for authentication, so this
     // function will not be called.
   });
 
-// GET /auth/dropbox/callback
+// GET /auth/allplayers/callback
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  If authentication fails, the user will be redirected back to the
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
-app.get('/auth/dropbox/callback', 
-  passport.authenticate('dropbox', { failureRedirect: '/login' }),
+app.get('/auth/allplayers/callback',
+  passport.authenticate('allplayers', { failureRedirect: '/login' }),
   function(req, res) {
     res.redirect('/');
   });
